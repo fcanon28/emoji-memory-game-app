@@ -1,0 +1,13 @@
+
+export default function Card({ emojiData }) {
+  console.log("in Card", emojiData);
+
+  const cards = emojiData.slice(0, 8).map((emoji) => (
+    <div className="card" key={emoji.code}>
+      <img src={emoji.image} />
+      <h2>{emoji.name}</h2>
+    </div>
+  ));
+
+  return <div className="cards-container">{cards}</div>;
+}

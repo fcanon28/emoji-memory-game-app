@@ -6,28 +6,45 @@ import Score from "./components/Score";
 
 function App() {
   const [emojiData, setEmojiData] = useState([]);
-  const [temp, setTemp] = useState(false)
+  const [currentEmojiId, setCurrentEmojiId] = useState("");
+  const [clickedEmojiIds, setClickedEmojiIds] = useState([])
 
   const xApiKey = "h3s9JuJlkeEA7+z3VMHUnA==U6wzrT1yslXm8rGv";
   const apiUrl = "https://api.api-ninjas.com/v1/emoji?group=smileys_emotion";
 
   useEffect(() => {
     axios
-    .get(apiUrl, {
-      headers: {
-        "X-Api-Key": xApiKey,
-        "Content-Type": "application/json",
-      },
-    })
-    .then((response) => {
-      setEmojiData(response.data);
-      console.log("Response data:", response.data);
-    })
-    .catch((error) => {
-      console.error("Error fetching data:", error);
-    });
-  }, [temp])
-  
+      .get(apiUrl, {
+        headers: {
+          "X-Api-Key": xApiKey,
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        setEmojiData(response.data);
+        console.log("Response data:", response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
+
+  function handleCardClick(emojiId) {
+    console.log("id/code", emojiId);
+    setCurrentEmojiId(emojiId);
+
+    if (clickedEmojiIds.includes(emojiId)) {
+      console.log('Game over!');
+      setClickedEmojiIds([])
+      //add reset score logic here
+      return
+    }
+
+    setClickedEmojiIds((prevIds) => [...prevIds, emojiId])
+    setCurrentEmojiId(emojiId)
+  }
+
+  console.log("clicked array", clickedEmojiIds);
 
   return (
     <>
@@ -38,8 +55,7 @@ function App() {
       </h3>
       <Score />
 
-      <Card emojiData={emojiData} />
-      <button onClick={() => setTemp(!temp)}>temp</button>
+      <Card emojiData={emojiData} handleCardClick={handleCardClick} />
     </>
   );
 }

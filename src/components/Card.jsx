@@ -1,9 +1,9 @@
 
-export default function Card({ emojiData }) {
+export default function Card({ emojiData, handleCardClick }) {
   console.log("in Card", emojiData);
 
   const cards = emojiData.slice(0, 8).map((emoji) => (
-    <div className="card" key={emoji.code}>
+    <div className="card" key={emoji.code} onClick={() => handleCardClick(emoji.code)}>
       <img src={emoji.image} />
       <h2>{emoji.name}</h2>
     </div>

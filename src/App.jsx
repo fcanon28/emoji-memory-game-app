@@ -2,7 +2,13 @@ import { useEffect, useState } from "react";
 import "./styles/App.css";
 import Card from "./components/Card";
 import Score from "./components/Score";
-import { fetchEmojis, fetchFlagEmojis } from "./services/emojiApi";
+import {
+  fetchEmojis,
+  fetchFlagEmojis,
+  fetchHandEmojis,
+  fetchSportEmojis,
+  fetchWarningEmojis,
+} from "./services/emojiApi";
 
 function App() {
   const [emojiData, setEmojiData] = useState([]);
@@ -15,7 +21,7 @@ function App() {
 
   useEffect(() => {
     setScore(0);
-    setScoreRecord([0])
+    setScoreRecord([0]);
     switch (gameChoice) {
       case 0:
         fetchEmojis()
@@ -27,10 +33,23 @@ function App() {
           .then((data) => setEmojiData(data.slice(0, 12)))
           .catch((error) => setError(error.message));
         break;
+      case 2:
+        fetchHandEmojis()
+          .then((data) => setEmojiData(data.slice(0, 12)))
+          .catch((error) => setError(error.message));
+        break;
+      case 3:
+        fetchSportEmojis()
+          .then((data) => setEmojiData(data.slice(0, 12)))
+          .catch((error) => setError(error.message));
+        break;
+      case 4:
+        fetchWarningEmojis()
+          .then((data) => setEmojiData(data.slice(0, 12)))
+          .catch((error) => setError(error.message));
+        break;
     }
   }, [gameChoice]);
-
-  console.log("emojiData", emojiData);
 
   function handleCardClick(emojiId) {
     if (clickedEmojiIds.includes(emojiId)) {
@@ -69,6 +88,15 @@ function App() {
         </div>
         <div key="flag" onClick={() => setGameChoice(1)}>
           Flag Emoji Memory Game
+        </div>
+        <div key="hand" onClick={() => setGameChoice(2)}>
+          Hand Emoji Memory Game
+        </div>
+        <div key="sport" onClick={() => setGameChoice(3)}>
+          Sport Emoji Memory Game
+        </div>
+        <div key="warning" onClick={() => setGameChoice(4)}>
+          Signs Emoji Memory Game
         </div>
       </nav>
       <h1>Emoji Memory Game 🧠⚡</h1>

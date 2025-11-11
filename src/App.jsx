@@ -7,7 +7,9 @@ import Score from "./components/Score";
 function App() {
   const [emojiData, setEmojiData] = useState([]);
   const [currentEmojiId, setCurrentEmojiId] = useState("");
-  const [clickedEmojiIds, setClickedEmojiIds] = useState([])
+  const [clickedEmojiIds, setClickedEmojiIds] = useState([]);
+  const [score, setScore] = useState(0);
+  const [scoreRecord, setScoreRecord] = useState([0]);
 
   const xApiKey = "h3s9JuJlkeEA7+z3VMHUnA==U6wzrT1yslXm8rGv";
   const apiUrl = "https://api.api-ninjas.com/v1/emoji?group=smileys_emotion";
@@ -34,17 +36,21 @@ function App() {
     setCurrentEmojiId(emojiId);
 
     if (clickedEmojiIds.includes(emojiId)) {
-      console.log('Game over!');
-      setClickedEmojiIds([])
-      //add reset score logic here
-      return
+      console.log("Game over!");
+      setClickedEmojiIds([]);
+      setScore(0);
+      setScoreRecord((prev) => [...prev, score])
+      // setBestScore logic
+      return;
     }
 
-    setClickedEmojiIds((prevIds) => [...prevIds, emojiId])
-    setCurrentEmojiId(emojiId)
+    setClickedEmojiIds((prevIds) => [...prevIds, emojiId]);
+    setCurrentEmojiId(emojiId);
+    setScore((prevScore) => prevScore + 1);
   }
 
   console.log("clicked array", clickedEmojiIds);
+  console.log('score record', scoreRecord)
 
   return (
     <>
@@ -53,8 +59,7 @@ function App() {
         Test your memory! Earn points by clicking on each image — but be
         careful, you can only click each one once!
       </h3>
-      <Score />
-
+      <Score score={score} bestScore={Math.max(...scoreRecord)} />
       <Card emojiData={emojiData} handleCardClick={handleCardClick} />
     </>
   );

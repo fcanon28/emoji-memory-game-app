@@ -88,6 +88,43 @@
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
 }
 
+/* Spinner overlay + spinner */
+.spinner-overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem auto;
+  width: 100%;
+  max-width: 960px;
+  min-height: 200px;
+  background: transparent;
+  position: relative;
+}
+
+.spinner {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 6px solid rgba(0,0,0,0.08);
+  border-top-color: #535bf2; /* accent color */
+  animation: spin 0.9s linear infinite;
+  box-shadow: 0 6px 18px rgba(83,91,242,0.12);
+}
+
+/* subtle dark mode tweak */
+@media (prefers-color-scheme: dark) {
+  .spinner {
+    border: 6px solid rgba(255,255,255,0.06);
+    border-top-color: #8ab4f8;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+  }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+
 .scoreboard {
   border-radius: 12px;
   padding: 0.5rem 1.5rem;

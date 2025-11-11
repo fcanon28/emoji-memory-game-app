@@ -18,36 +18,46 @@ function App() {
   const [isGameOver, setIsGameOver] = useState(false);
   const [error, setError] = useState("");
   const [gameChoice, setGameChoice] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setScore(0);
     setScoreRecord([0]);
+    setError("");
+    setLoading(true);
     switch (gameChoice) {
       case 0:
         fetchEmojis()
           .then((data) => setEmojiData(data.slice(0, 12)))
-          .catch((error) => setError(error.message));
+          .catch((error) => setError(error.message))
+          .finally(() => setLoading(false));
         break;
       case 1:
         fetchFlagEmojis()
           .then((data) => setEmojiData(data.slice(0, 12)))
-          .catch((error) => setError(error.message));
+          .catch((error) => setError(error.message))
+          .finally(() => setLoading(false));
         break;
       case 2:
         fetchHandEmojis()
           .then((data) => setEmojiData(data.slice(0, 12)))
-          .catch((error) => setError(error.message));
+          .catch((error) => setError(error.message))
+          .finally(() => setLoading(false));
         break;
       case 3:
         fetchSportEmojis()
           .then((data) => setEmojiData(data.slice(0, 12)))
-          .catch((error) => setError(error.message));
+          .catch((error) => setError(error.message))
+          .finally(() => setLoading(false));
         break;
       case 4:
         fetchWarningEmojis()
           .then((data) => setEmojiData(data.slice(0, 12)))
-          .catch((error) => setError(error.message));
+          .catch((error) => setError(error.message))
+          .finally(() => setLoading(false));
         break;
+      default:
+        setLoading(false);
     }
   }, [gameChoice]);
 
@@ -105,7 +115,14 @@ function App() {
       <Score score={score} bestScore={Math.max(...scoreRecord)} />
       {isGameOver ? <p className="gameover">Game Over!</p> : <p> </p>}
 
-      <Card emojiData={emojiData} handleCardClick={handleCardClick} />
+      {loading ? (
+        <div className="spinner-overlay" aria-live="polite" aria-busy="true">
+          <div className="spinner" />
+        </div>
+      ) : (
+        <Card emojiData={emojiData} handleCardClick={handleCardClick} />
+      )}
+
       {error && <p className="error">{error}</p>}
     </>
   );

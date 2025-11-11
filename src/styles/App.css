@@ -1,5 +1,5 @@
 #root {
-  max-width: 1280px;
+  max-width: 1480px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
@@ -7,7 +7,7 @@
 
 /* Design-size vars used to compute an automatic scale factor on small landscape screens */
 :root {
-  --app-design-width: 1280px; /* base layout width used in this stylesheet */
+  --app-design-width: 1480px; /* base layout width used in this stylesheet */
   --app-design-height: 720px; /* approximate design height for scaling math */
   --app-scale: 1; /* computed scale (unitless) */
 }
@@ -201,7 +201,7 @@
   gap: 1rem;
   margin-bottom: 2rem;
   flex-wrap: wrap;
-  justify-content: left
+  justify-content: center;
 }
 
 .navbar div {

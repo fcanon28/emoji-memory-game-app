@@ -109,9 +109,9 @@ function App() {
           Signs Emoji Memory Game
         </div>
       </nav>
-      <h1>Emoji Memory Game 🧠⚡</h1>
-      <h2>Test your memory! Earn points by clicking on each emoji</h2>
-      <h2>But be careful, you can only click each one once!</h2>
+      <h2>Emoji Memory Game 🧠⚡</h2>
+      <h3>Test your memory! Earn points by clicking on each emoji</h3>
+      <h3>But be careful, you can only click each one once!</h3>
       <Score score={score} bestScore={Math.max(...scoreRecord)} />
       {isGameOver ? <p className="gameover">Game Over!</p> : <p> </p>}
 

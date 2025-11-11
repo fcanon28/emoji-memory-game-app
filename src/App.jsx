@@ -28,31 +28,31 @@ function App() {
     switch (gameChoice) {
       case 0:
         fetchEmojis()
-          .then((data) => setEmojiData(data.slice(0, 12)))
+          .then((data) => setEmojiData(data.slice(0, 20)))
           .catch((error) => setError(error.message))
           .finally(() => setLoading(false));
         break;
       case 1:
         fetchFlagEmojis()
-          .then((data) => setEmojiData(data.slice(0, 12)))
+          .then((data) => setEmojiData(data.slice(0, 20)))
           .catch((error) => setError(error.message))
           .finally(() => setLoading(false));
         break;
       case 2:
         fetchHandEmojis()
-          .then((data) => setEmojiData(data.slice(0, 12)))
+          .then((data) => setEmojiData(data.slice(0, 20)))
           .catch((error) => setError(error.message))
           .finally(() => setLoading(false));
         break;
       case 3:
         fetchSportEmojis()
-          .then((data) => setEmojiData(data.slice(0, 12)))
+          .then((data) => setEmojiData(data.slice(0, 20)))
           .catch((error) => setError(error.message))
           .finally(() => setLoading(false));
         break;
       case 4:
         fetchWarningEmojis()
-          .then((data) => setEmojiData(data.slice(0, 12)))
+          .then((data) => setEmojiData(data.slice(0, 13)))
           .catch((error) => setError(error.message))
           .finally(() => setLoading(false));
         break;

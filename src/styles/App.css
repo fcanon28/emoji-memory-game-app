@@ -5,6 +5,56 @@
   text-align: center;
 }
 
+/* Design-size vars used to compute an automatic scale factor on small landscape screens */
+:root {
+  --app-design-width: 1280px; /* base layout width used in this stylesheet */
+  --app-design-height: 720px; /* approximate design height for scaling math */
+  --app-scale: 1; /* computed scale (unitless) */
+}
+
+/* If the device is in landscape and narrower than typical tablet/desktop widths,
+   compute a scale so the full design fits in the viewport and apply it.
+   This keeps the same layout but scales it down so the user can see everything.
+*/
+@media (orientation: landscape) and (max-width: 1024px) {
+  :root {
+    --app-scale: min(
+      calc(100vw / var(--app-design-width)),
+      calc(100vh / var(--app-design-height))
+    );
+  }
+
+  /* force the root to the design width so scale math is consistent, then scale */
+  #root {
+    max-width: none;
+    width: var(--app-design-width);
+    transform-origin: top center;
+    transform: scale(var(--app-scale));
+    margin: 0 auto;
+  }
+
+  /* scale a few important spacing values so spacing remains proportional */
+  .cards-container .card {
+    flex: 1 0 calc(25% - 0.75rem); /* slightly wider than calc(25% - 1rem) */
+    padding: calc(2.2rem * var(--app-scale));
+    height: calc(400px * var(--app-scale));
+    border-radius: calc(8px * var(--app-scale));
+  }
+
+  .scoreboard {
+    padding: calc(0.5rem * var(--app-scale)) calc(1.5rem * var(--app-scale));
+    height: calc(50px * var(--app-scale));
+    border-radius: calc(12px * var(--app-scale));
+    font-size: calc(1.2rem * var(--app-scale));
+  }
+
+  .gameover, .error {
+    font-size: calc(1.4rem * var(--app-scale));
+    padding: calc(0.8rem * var(--app-scale)) calc(1.2rem * var(--app-scale));
+    border-radius: calc(8px * var(--app-scale));
+  }
+}
+
 .cards-container {
   display: flex;
   flex-wrap: wrap;
@@ -101,4 +151,60 @@
   margin: 1.5rem auto;
   width: fit-content;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark mode styles: respect the user's OS/browser preference (works on iOS/Android/desktop) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --dm-bg: #0b0b0c;
+    --dm-surface: #141416;
+    --dm-muted: #9aa0a6;
+    --dm-accent: #8ab4f8;
+    --dm-danger: #ff8a80;
+  }
+
+  /* page-level adjustments */
+  body {
+    background: var(--dm-bg);
+    color: #e6eef8;
+  }
+
+  /* keep container transparent but ensure text contrasts */
+  #root {
+    background: transparent;
+    color: #e6eef8;
+  }
+
+  /* cards use a darker surface color with subtle borders */
+  .card {
+    background: var(--dm-surface);
+    color: #e6eef8;
+    border: 1px solid rgba(255,255,255,0.04);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.6);
+  }
+
+  /* scoreboard adapts to dark background */
+  .scoreboard {
+    background: rgba(255,255,255,0.02);
+    color: #e6eef8;
+    border-color: rgba(255,255,255,0.06);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+  }
+
+  .scoreboard span {
+    color: #d02626;
+  }
+
+  /* callouts (gameover / error) keep emphasis but fit dark bg */
+  .gameover, .error {
+    background: rgba(255,255,255,0.03);
+    color: var(--dm-danger);
+    border-color: rgba(255,0,0,0.12);
+    box-shadow: none;
+  }
+
+  /* tweak small interactive elements for visibility */
+  .card:hover {
+    box-shadow: 0 8px 18px rgba(0,0,0,0.7);
+  }
 }

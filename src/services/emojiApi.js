@@ -16,3 +16,19 @@ export const fetchEmojis = async (group = "smileys_emotion") => {
     throw error;
   }
 };
+
+export const fetchFlagEmojis = async (subgroup = "country_flag") => {
+  try {
+    const response = await fetch(`${API_URL}?subgroup=${subgroup}`, {
+      headers: {
+        "X-Api-Key": API_KEY,
+        "Content-Type": "application/json",
+      },
+    });
+    if (!response.ok) throw new Error(`API error: ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    console.error("Failed to fetch emojis", error);
+    throw error;
+  }
+};

@@ -37,8 +37,14 @@
   .cards-container .card {
     flex: 1 0 calc(25% - 0.75rem); /* slightly wider than calc(25% - 1rem) */
     padding: calc(2.2rem * var(--app-scale));
-    height: calc(400px * var(--app-scale));
+    height: calc(260px * var(--app-scale));
     border-radius: calc(8px * var(--app-scale));
+    /* allow flex items to shrink below their content width so they don't force overflow */
+    min-width: 0;
+    /* encourage wrapping of long words/emojis/text inside the card */
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    white-space: normal;
   }
 
   .scoreboard {
@@ -151,6 +157,36 @@
   margin: 1.5rem auto;
   width: fit-content;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  justify-content: left
+}
+
+.navbar div {
+  padding: 0.8rem 1.5rem;
+  /* background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%); */
+  color: #535bf2;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  /* box-shadow: 0 4px 6px rgba(99, 102, 241, 0.3); */
+  border: none;
+  font-size: 0.95rem;
+}
+
+.navbar div:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 12px rgba(99, 102, 241, 0.4);
+}
+
+.navbar div:active {
+  transform: translateY(-1px);
 }
 
 /* Dark mode styles: respect the user's OS/browser preference (works on iOS/Android/desktop) */

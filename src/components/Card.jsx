@@ -1,6 +1,6 @@
 
 export default function Card({ emojiData, handleCardClick }) {
-  console.log("in Card", emojiData);
+//   console.log("in Card", emojiData);
 
   const cards = emojiData.slice(0, 8).map((emoji) => (
     <div className="card" key={emoji.code} onClick={() => handleCardClick(emoji.code)}>
